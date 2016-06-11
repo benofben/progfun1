@@ -25,9 +25,9 @@ object Lists {
    */
    def sum(xs: List[Int]): Int = {
      if(xs.isEmpty)
-       return 0;
+       0
      else
-       return(xs.head + sum(xs.tail));
+       xs.head + sum(xs.tail)
    }
   
   /**
@@ -47,10 +47,10 @@ object Lists {
       if(xs.isEmpty)
         throw new java.util.NoSuchElementException();
       else if(xs.tail.isEmpty)
-        return(xs.head)
+        xs.head
       else if(xs.head>max(xs.tail))
-        return(xs.head)
+        xs.head
       else
-        return(max(xs.tail))
+        max(xs.tail)
     }
 }
