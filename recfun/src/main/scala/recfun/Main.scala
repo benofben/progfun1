@@ -32,10 +32,7 @@ object Main {
    * Exercise 2
    */
     def balance(chars: List[Char]): Boolean = {
-      if(balanceInt(chars, 0)!=0)
-        false
-      else
-        true
+      (balanceInt(chars, 0)==0)
     }
     
     def balanceInt(chars: List[Char], leftParenCount: Int): Int = {
