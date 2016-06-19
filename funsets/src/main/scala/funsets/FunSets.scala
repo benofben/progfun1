@@ -67,12 +67,7 @@ object FunSets {
    * that satisfies `p`.
    */
     def exists(s: Set, p: Int => Boolean): Boolean = {
-      def q(p: Int => Boolean): Int => Boolean = (x:Int) => {
-        if (! p(x)) 
-          true
-        else
-          false
-      }
+      def q(p: Int => Boolean): Int => Boolean = (x:Int) => !p(x)
       !forall(s,q(p))
     }
 
@@ -88,7 +83,6 @@ object FunSets {
   /**
    * Returns a set transformed by applying `f` to each element of `s`.
    * return a set x->E y st f(x)=y
-   * 
    */
     def map(s: Set, f: Int => Int): Set = (x:Int) => {
       def iter(a: Int): Boolean = {
@@ -98,8 +92,8 @@ object FunSets {
       }
       iter(bound)
     }
-  
-  /**
+
+    /**
    * Displays the contents of a set
    */
   def toString(s: Set): String = {
