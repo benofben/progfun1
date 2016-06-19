@@ -79,12 +79,26 @@ object FunSets {
       }
       iter(bound)
     }
-  
+    
   /**
    * Returns a set transformed by applying `f` to each element of `s`.
    * return a set x->E y st f(x)=y
    */
     def map(s: Set, f: Int => Int): Set = (x:Int) => {
+      def p(x:Int, a:Int): Boolean = x==f(a)
+      def iter(a: Int): Boolean = {
+        if (contains(s,a) && p(x,a)) true
+        else if (a== -1 * bound) false
+        else iter(a-1)
+      }
+      iter(bound)
+    }
+  
+  /**
+   * Returns a set transformed by applying `f` to each element of `s`.
+   * return a set x->E y st f(x)=y
+   */
+    def map2(s: Set, f: Int => Int): Set = (x:Int) => {
       def iter(a: Int): Boolean = {
         if (contains(s,a) && x == f(a)) true
         else if (a== -1 * bound) false
