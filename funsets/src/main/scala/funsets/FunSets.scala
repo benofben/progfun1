@@ -87,10 +87,17 @@ object FunSets {
   
   /**
    * Returns a set transformed by applying `f` to each element of `s`.
+   * return a set x->E y st f(x)=y
    * 
-   * E x s.t. x is in s && 
    */
-    def map(s: Set, f: Int => Int): Set = (x:Int) => s(x)
+    def map(s: Set, f: Int => Int): Set = (x:Int) => {
+      def iter(a: Int): Boolean = {
+        if (contains(s,a) && x == f(a)) true
+        else if (a== -1 * bound) false
+        else iter(a-1)
+      }
+      iter(bound)
+    }
   
   /**
    * Displays the contents of a set
