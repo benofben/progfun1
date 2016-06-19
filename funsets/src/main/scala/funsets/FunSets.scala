@@ -68,10 +68,10 @@ object FunSets {
    */
     def exists(s: Set, p: Int => Boolean): Boolean = {
       def q(p: Int => Boolean): Int => Boolean = (x:Int) => {
-        if (p(x)) 
-          false
-        else
+        if (! p(x)) 
           true
+        else
+          false
       }
       !forall(s,q(p))
     }
