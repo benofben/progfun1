@@ -85,13 +85,8 @@ object FunSets {
    * return a set x->E y st f(x)=y
    */
     def map(s: Set, f: Int => Int): Set = (x:Int) => {
-      def p(x:Int, a:Int): Boolean = x==f(a)
-      def iter(a: Int): Boolean = {
-        if (contains(s,a) && p(x,a)) true
-        else if (a== -1 * bound) false
-        else iter(a-1)
-      }
-      iter(bound)
+      def p(a:Int)(y:Int): Boolean = a==f(y)
+      exists(s,p(x))
     }
   
   /**
