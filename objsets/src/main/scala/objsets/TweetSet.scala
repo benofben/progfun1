@@ -78,6 +78,8 @@ abstract class TweetSet {
    */
   def descendingByRetweet: TweetList
   
+  def descendingByRetweetAcc(acc: TweetList): TweetList
+
   /**
    * The following methods are already implemented
    */
@@ -115,6 +117,8 @@ class Empty extends TweetSet {
   override def mostRetweeted: Tweet = throw new java.util.NoSuchElementException
   
   override def descendingByRetweet: TweetList = Nil
+  override def descendingByRetweetAcc(acc: TweetList): TweetList = acc
+
 
   /**
    * The following methods are already implemented
@@ -183,8 +187,12 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   }
   
   override def descendingByRetweet: TweetList = {
-    
+    def tweet: Tweet = this.mostRetweeted
+    def acc: TweetList = new Cons(tweet, Nil)
+    this.remove(tweet).descendingByRetweetAcc(acc)
   }
+  
+  def descendingByRetweetAcc(acc: TweetList): TweetList = acc
       
   /**
    * The following methods are already implemented
