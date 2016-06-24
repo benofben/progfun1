@@ -65,8 +65,8 @@ abstract class TweetSet {
    * Question: Should we implement this method here, or should it remain abstract
    * and be implemented in the subclasses?
    */
-  def mostRetweeted: Tweet = ???
-  
+  def mostRetweeted: Tweet
+
   /**
    * Returns a list containing all tweets of this set, sorted by retweet count
    * in descending order. In other words, the head of the resulting list should
@@ -76,7 +76,7 @@ abstract class TweetSet {
    * Question: Should we implement this method here, or should it remain abstract
    * and be implemented in the subclasses?
    */
-  def descendingByRetweet: TweetList = ???
+  def descendingByRetweet: TweetList
   
   /**
    * The following methods are already implemented
@@ -112,6 +112,10 @@ class Empty extends TweetSet {
   
   override def union(that: TweetSet): TweetSet = that
   
+  override def mostRetweeted: Tweet = throw new java.util.NoSuchElementException
+  
+  override def descendingByRetweet: TweetList = Nil
+
   /**
    * The following methods are already implemented
    */
@@ -147,6 +151,39 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
     def acc: TweetSet = that.incl(this.elem)
     def leftAcc: TweetSet = this.left.union(acc)
     this.right.union(leftAcc)
+  }
+
+  override def mostRetweeted: Tweet = {
+    def left: Tweet = {
+      try{
+        this.left.mostRetweeted
+      } 
+      catch{
+        case e: NoSuchElementException => {this.elem}
+      } 
+    }
+    def right: Tweet = {
+      try{
+        this.right.mostRetweeted
+      } 
+      catch{
+        case e: NoSuchElementException => {this.elem}
+      }
+    }
+    
+    def leftMost: Tweet = left
+    def rightMost: Tweet = right
+    
+    if(leftMost.retweets>rightMost.retweets && leftMost.retweets>elem.retweets)
+      leftMost
+    else if(rightMost.retweets>leftMost.retweets && rightMost.retweets>elem.retweets)
+      rightMost
+    else
+      elem
+  }
+  
+  override def descendingByRetweet: TweetList = {
+    
   }
       
   /**
