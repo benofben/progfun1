@@ -44,7 +44,7 @@ abstract class TweetSet {
   def filter(p: Tweet => Boolean): TweetSet
   
   /**
-   * This is a helper method for `filter` that propagetes the accumulated tweets.
+   * This is a helper method for `filter` that propagates the accumulated tweets.
    */
   def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet
 
@@ -62,7 +62,7 @@ abstract class TweetSet {
    * Calling `mostRetweeted` on an empty set should throw an exception of
    * type `java.util.NoSuchElementException`.
    *
-   * Question: Should we implment this method here, or should it remain abstract
+   * Question: Should we implement this method here, or should it remain abstract
    * and be implemented in the subclasses?
    */
   def mostRetweeted: Tweet = ???
@@ -73,7 +73,7 @@ abstract class TweetSet {
    * have the highest retweet count.
    *
    * Hint: the method `remove` on TweetSet will be very useful.
-   * Question: Should we implment this method here, or should it remain abstract
+   * Question: Should we implement this method here, or should it remain abstract
    * and be implemented in the subclasses?
    */
   def descendingByRetweet: TweetList = ???
@@ -107,9 +107,8 @@ abstract class TweetSet {
 }
 
 class Empty extends TweetSet {
-  override def filter(p: Tweet => Boolean): TweetSet = ???
-
-  def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = ???
+  override def filter(p: Tweet => Boolean): TweetSet = new Empty
+  def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = acc
   
   /**
    * The following methods are already implemented
@@ -125,9 +124,22 @@ class Empty extends TweetSet {
 }
 
 class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
-  override def filter(p: Tweet => Boolean): TweetSet = ???
 
-  def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = ???  
+  /**
+   * This method takes a predicate and returns a subset of all the elements
+   * in the original set for which the predicate is true.
+   */
+  override def filter(p: Tweet => Boolean): TweetSet = {
+    def acc: TweetSet = if(p(elem)) new NonEmpty(elem, new Empty, new Empty) else new Empty
+    def leftAcc: TweetSet = this.left.filterAcc(p, acc)
+    this.right.filterAcc(p, leftAcc)
+  }
+
+  def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = {
+    def acc2: TweetSet = if(p(elem)) acc.incl(elem) else acc
+    def leftAcc: TweetSet = this.left.filterAcc(p, acc2)
+    this.right.filterAcc(p, leftAcc)
+  }
     
   /**
    * The following methods are already implemented
