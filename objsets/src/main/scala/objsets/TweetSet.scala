@@ -264,6 +264,19 @@ object GoogleVsApple {
 }
 
 object Main extends App {
+  val google = List("android", "Android", "galaxy", "Galaxy", "nexus", "Nexus")
+  val apple = List("ios", "iOS", "iphone", "iPhone", "ipad", "iPad")
+  val tweets: TweetSet = TweetReader.allTweets
+  def googleFilter(t:Tweet): Boolean = google.exists(x=>t.text.contains(x))
+  def appleFilter(t:Tweet): Boolean = apple.exists(x=>t.text.contains(x))
+  val googleTweets: TweetSet = tweets.filter(googleFilter)
+  val appleTweets: TweetSet = tweets.filter(appleFilter)
+  
+  def x = googleTweets.union(appleTweets)
+  println(x.mostRetweeted.toString)
+  //x.descendingByRetweet.foreach(println)
+  
+  
   // Print the trending tweets
-  GoogleVsApple.trending foreach println
+  //GoogleVsApple.trending foreach println
 }
