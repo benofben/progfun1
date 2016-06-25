@@ -33,6 +33,8 @@ class Tweet(val user: String, val text: String, val retweets: Int) {
  * [1] http://en.wikipedia.org/wiki/Binary_search_tree
  */
 abstract class TweetSet {
+  
+  def isEmpty: Boolean
 
   /**
    * This method takes a predicate and returns a subset of all the elements
@@ -109,6 +111,8 @@ abstract class TweetSet {
 }
 
 class Empty extends TweetSet {
+  override def isEmpty: Boolean = true
+
   override def filter(p: Tweet => Boolean): TweetSet = new Empty
   def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = acc
   
@@ -135,6 +139,8 @@ class Empty extends TweetSet {
 
 class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
 
+  override def isEmpty: Boolean = false
+
   /**
    * This method takes a predicate and returns a subset of all the elements
    * in the original set for which the predicate is true.
@@ -158,32 +164,28 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   }
 
   override def mostRetweeted: Tweet = {
-    def left: Tweet = {
-      try{
-        this.left.mostRetweeted
-      } 
-      catch{
-        case e: NoSuchElementException => {this.elem}
-      } 
-    }
-    def right: Tweet = {
-      try{
-        this.right.mostRetweeted
-      } 
-      catch{
-        case e: NoSuchElementException => {this.elem}
-      }
-    }
-    
-    def leftMost: Tweet = left
-    def rightMost: Tweet = right
-    
-    if(leftMost.retweets>rightMost.retweets && leftMost.retweets>elem.retweets)
-      leftMost
-    else if(rightMost.retweets>leftMost.retweets && rightMost.retweets>elem.retweets)
-      rightMost
-    else
+    if(left.isEmpty && right.isEmpty)
       elem
+    else if(left.isEmpty) {
+      if(right.mostRetweeted.retweets>elem.retweets)
+        right.mostRetweeted
+      else
+        elem
+    }
+    else if(right.isEmpty) {
+      if(left.mostRetweeted.retweets>elem.retweets)
+        left.mostRetweeted
+      else
+        elem
+    }
+    else {
+      if(right.mostRetweeted.retweets>elem.retweets && right.mostRetweeted.retweets>left.mostRetweeted.retweets)
+        right.mostRetweeted
+      else if(left.mostRetweeted.retweets>elem.retweets && left.mostRetweeted.retweets>right.mostRetweeted.retweets)
+        left.mostRetweeted
+      else
+        elem
+    }
   }
   
   override def descendingByRetweet: TweetList = {
@@ -260,7 +262,8 @@ object GoogleVsApple {
    * A list of all tweets mentioning a keyword from either apple or google,
    * sorted by the number of retweets.
    */
-  lazy val trending: TweetList = (googleTweets.union(appleTweets)).descendingByRetweet
+  lazy val trending: TweetList = ???
+  //(googleTweets.union(appleTweets)).descendingByRetweet
 }
 
 object Main extends App {
