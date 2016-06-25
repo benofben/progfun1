@@ -183,7 +183,19 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   }
   
   override def descendingByRetweet: TweetList = {
-    new Cons(this.mostRetweeted, Nil)
+    def descendingByRetweetAcc(tweets:TweetSet, acc: TweetList): TweetList = {
+      if(tweets.isEmpty)
+        acc
+      else {
+        def t: Tweet = tweets.mostRetweeted
+        def acc2: TweetList = new Cons(t, acc)
+        descendingByRetweetAcc(tweets.remove(t), acc2)
+      }
+    }
+    
+    def t: Tweet = this.mostRetweeted
+    def acc: TweetList = new Cons(t, Nil)
+    descendingByRetweetAcc(this.remove(t), acc)
   }
   
       
