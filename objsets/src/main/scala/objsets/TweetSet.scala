@@ -188,14 +188,15 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
         acc
       else {
         def t: Tweet = tweets.mostRetweeted
-        def acc2: TweetList = new Cons(t, acc)
-        descendingByRetweetAcc(tweets.remove(t), acc2)
+        def acc2: TweetList = descendingByRetweetAcc(tweets.remove(t), acc)
+        new Cons(t, acc2)
       }
     }
     
     def t: Tweet = this.mostRetweeted
-    def acc: TweetList = new Cons(t, Nil)
-    descendingByRetweetAcc(this.remove(t), acc)
+    def acc: TweetList = Nil
+    def acc2: TweetList = descendingByRetweetAcc(this.remove(t), acc)
+    new Cons(t, acc2)
   }
   
       
