@@ -160,6 +160,8 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   }
 
   override def mostRetweeted: Tweet = {
+    // pretty sure there's some unexpected pointer stuff happening here.  This sometimes returns the wrong value.
+    
     val leftMostRetweeted = {
       if(left.isEmpty)
         elem
