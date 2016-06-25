@@ -79,8 +79,6 @@ abstract class TweetSet {
    * and be implemented in the subclasses?
    */
   def descendingByRetweet: TweetList
-  
-  def descendingByRetweetAcc(acc: TweetList): TweetList
 
   /**
    * The following methods are already implemented
@@ -121,8 +119,6 @@ class Empty extends TweetSet {
   override def mostRetweeted: Tweet = throw new java.util.NoSuchElementException
   
   override def descendingByRetweet: TweetList = Nil
-  override def descendingByRetweetAcc(acc: TweetList): TweetList = acc
-
 
   /**
    * The following methods are already implemented
@@ -164,37 +160,32 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   }
 
   override def mostRetweeted: Tweet = {
-    if(left.isEmpty && right.isEmpty)
+    val leftMostRetweeted = {
+      if(left.isEmpty)
+        elem
+      else
+        left.mostRetweeted
+    }
+    
+    val rightMostRetweeted = {
+      if(right.isEmpty)
+        elem
+      else
+        right.mostRetweeted
+    }
+    
+    if(leftMostRetweeted.retweets>elem.retweets && leftMostRetweeted.retweets>rightMostRetweeted.retweets)
+      leftMostRetweeted
+    else if(rightMostRetweeted.retweets>elem.retweets && rightMostRetweeted.retweets>leftMostRetweeted.retweets)
+      rightMostRetweeted
+    else
       elem
-    else if(left.isEmpty) {
-      if(right.mostRetweeted.retweets>elem.retweets)
-        right.mostRetweeted
-      else
-        elem
-    }
-    else if(right.isEmpty) {
-      if(left.mostRetweeted.retweets>elem.retweets)
-        left.mostRetweeted
-      else
-        elem
-    }
-    else {
-      if(right.mostRetweeted.retweets>elem.retweets && right.mostRetweeted.retweets>left.mostRetweeted.retweets)
-        right.mostRetweeted
-      else if(left.mostRetweeted.retweets>elem.retweets && left.mostRetweeted.retweets>right.mostRetweeted.retweets)
-        left.mostRetweeted
-      else
-        elem
-    }
   }
   
   override def descendingByRetweet: TweetList = {
-    def tweet: Tweet = this.mostRetweeted
-    def acc: TweetList = new Cons(tweet, Nil)
-    this.remove(tweet).descendingByRetweetAcc(acc)
+    new Cons(this.mostRetweeted, Nil)
   }
   
-  def descendingByRetweetAcc(acc: TweetList): TweetList = acc
       
   /**
    * The following methods are already implemented
@@ -262,11 +253,11 @@ object GoogleVsApple {
    * A list of all tweets mentioning a keyword from either apple or google,
    * sorted by the number of retweets.
    */
-  lazy val trending: TweetList = ???
-  //(googleTweets.union(appleTweets)).descendingByRetweet
+  lazy val trending: TweetList = (googleTweets.union(appleTweets)).descendingByRetweet
 }
 
 object Main extends App {
+  /*
   val google = List("android", "Android", "galaxy", "Galaxy", "nexus", "Nexus")
   val apple = List("ios", "iOS", "iphone", "iPhone", "ipad", "iPad")
   val tweets: TweetSet = TweetReader.allTweets
@@ -277,9 +268,10 @@ object Main extends App {
   
   def x = googleTweets.union(appleTweets)
   println(x.mostRetweeted.toString)
-  //x.descendingByRetweet.foreach(println)
-  
+
+  x.descendingByRetweet.foreach(println)
+  */
   
   // Print the trending tweets
-  //GoogleVsApple.trending foreach println
+  GoogleVsApple.trending foreach println
 }
