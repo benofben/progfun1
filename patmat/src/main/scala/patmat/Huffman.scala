@@ -135,14 +135,10 @@ object Huffman {
    */
     def combine(trees: List[CodeTree]): List[CodeTree] = {
       if (trees.length<2) trees
-      
-      val newtree = makeCodeTree(trees.head, trees.tail.head)      
-      val newtrees = List[CodeTree](newtree) ::: trees.tail.tail 
-      newtrees
-      
-      // now we need to sort newtrees
-      //def lt(a: CodeTree, b: CodeTree): Boolean = if (weight(a)>weight(b)) true else false
-      //newtrees.sortWith(lt)
+      else {
+        val newtree = makeCodeTree(trees.head, trees.tail.head)      
+        List[CodeTree](newtree) ::: trees.tail.tail
+      }
     }
   
   /**
