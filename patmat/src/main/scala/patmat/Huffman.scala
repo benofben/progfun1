@@ -98,7 +98,23 @@ object Huffman {
    * head of the list should have the smallest weight), where the weight
    * of a leaf is the frequency of the character.
    */
-    def makeOrderedLeafList(freqs: List[(Char, Int)]): List[Leaf] = ???
+    def makeOrderedLeafList(freqs: List[(Char, Int)]): List[Leaf] = {
+      def lt(a: (Char, Int), b: (Char, Int)): Boolean = if (a._2 > b._2) true else false
+      val x = freqs.sortWith(lt)
+      
+      // Now we need to convert a List[(Char, Int]) to List[Leaf]
+      
+      def converter(x: List[(Char, Int)], acc: List[Leaf]): List[Leaf] = {
+        if (x.isEmpty)
+          acc
+        else {
+          val newacc = List[Leaf](Leaf(x.head._1, x.head._2)) ::: acc
+          converter(x.tail, newacc)
+        }
+      }
+      
+      converter(x, List[Leaf]())
+    }
   
   /**
    * Checks whether the list `trees` contains only one single code tree.
