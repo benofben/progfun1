@@ -72,7 +72,24 @@ object Huffman {
    *       println("integer is  : "+ theInt)
    *   }
    */
-    def times(chars: List[Char]): List[(Char, Int)] = ???
+  def times(chars: List[Char]): List[(Char, Int)] = {
+    def timesacc(chars: List[Char], acc: List[(Char, Int)]): List[(Char, Int)] = {
+      if(chars.isEmpty) 
+        acc
+      else {
+        val char = chars.head
+        def p(x: Char): Boolean = if(x==char) false else true
+        val newchars = chars.filter(p)
+        val weight = chars.length - newchars.length
+        
+        val tuple = (char, weight)
+        val newacc=acc ::: List[(Char, Int)](tuple)
+        timesacc(newchars, newacc)
+      }
+    }
+    
+    timesacc(chars, List[(Char, Int)]())
+  }
   
   /**
    * Returns a list of `Leaf` nodes for a given frequency table `freqs`.
