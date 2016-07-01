@@ -158,7 +158,15 @@ object Huffman {
    *    the example invocation. Also define the return type of the `until` function.
    *  - try to find sensible parameter names for `xxx`, `yyy` and `zzz`.
    */
-    def until(xxx: ???, yyy: ???)(zzz: ???): ??? = ???
+    //    def until(xxx: ???, yyy: ???)(zzz: ???): ??? = ???
+    // xxx = end condition (trees: List[CodeTree]): Boolean
+    // yyy = combine function (trees: List[CodeTree]): List[CodeTree]
+    // zzz = list
+    
+    def until(endCondition: List[CodeTree]=>Boolean, combineFunction: List[CodeTree]=>List[CodeTree])(list: List[CodeTree]): CodeTree = {
+      if (singleton(list)) list.head
+      else until(endCondition, combineFunction)(list)
+    }
   
   /**
    * This function creates a code tree which is optimal to encode the text `chars`.
@@ -166,7 +174,11 @@ object Huffman {
    * The parameter `chars` is an arbitrary text. This function extracts the character
    * frequencies from that text and creates a code tree based on them.
    */
-    def createCodeTree(chars: List[Char]): CodeTree = ???
+    def createCodeTree(chars: List[Char]): CodeTree = {
+      val freqs = times(chars)
+      val trees = makeOrderedLeafList(freqs)
+      until(singleton, combine)(trees)
+    }
   
 
   // Part 3: Decoding
