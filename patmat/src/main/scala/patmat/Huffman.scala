@@ -78,7 +78,7 @@ object Huffman {
         acc
       else {
         val char = chars.head
-        def p(x: Char): Boolean = if(x==char) false else true
+        def p(x: Char): Boolean = x!=char
         val newchars = chars.filter(p)
         val weight = chars.length - newchars.length
         
@@ -99,7 +99,7 @@ object Huffman {
    * of a leaf is the frequency of the character.
    */
     def makeOrderedLeafList(freqs: List[(Char, Int)]): List[Leaf] = {
-      def lt(a: (Char, Int), b: (Char, Int)): Boolean = if (a._2 > b._2) true else false
+      def lt(a: (Char, Int), b: (Char, Int)): Boolean = a._2 > b._2
       val x = freqs.sortWith(lt)
       
       // Now we need to convert a List[(Char, Int]) to List[Leaf]
@@ -134,8 +134,6 @@ object Huffman {
    * unchanged.
    */
     def combine(trees: List[CodeTree]): List[CodeTree] = {
-      if (trees.isEmpty) trees
-      if (singleton(trees)) trees
       if (trees.length<2) trees
       
       val newtree = makeCodeTree(trees.head, trees.tail.head)      
