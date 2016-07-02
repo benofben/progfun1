@@ -55,6 +55,12 @@ class HuffmanSuite extends FunSuite {
     assert(combine(leaflist) === List(Leaf('e', 1)))
   }
 
+  test("decoded secret") {
+    //println(decodedSecret)
+    assert(decodedSecret==List[Char]('h', 'u', 'f', 'f', 'm', 'a', 'n', 'e', 's', 't', 'c', 'o', 'o', 'l'))
+  }
+
+
   test("decode and encode a very short text should be identity") {
     new TestTrees {
       assert(decode(t1, encode(t1)("ab".toList)) === "ab".toList)
