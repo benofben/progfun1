@@ -20,6 +20,7 @@ object Anagrams {
    *  Note: If the frequency of some character is zero, then that character should not be
    *  in the list.
    */
+  type Occurrence = (Char, Int)
   type Occurrences = List[(Char, Int)]
 
   /** The dictionary is simply a sequence of words.
@@ -34,10 +35,22 @@ object Anagrams {
    *
    *  Note: you must use `groupBy` to implement this method!
    */
-  def wordOccurrences(w: Word): Occurrences = ???
+  def wordOccurrences(w: Word): Occurrences = {
+    val groupByChar = w.groupBy(x=>x.toLower)
+    val charCount = groupByChar.mapValues(x=>x.length())    
+    val list = charCount.map { case (k,v) => (k, v) }(collection.breakOut): Occurrences
+    def lt(a:Occurrence, b:Occurrence):Boolean = a._1 < b._1
+    list.sortWith(lt)
+  }
 
   /** Converts a sentence into its character occurrence list. */
-  def sentenceOccurrences(s: Sentence): Occurrences = ???
+  def sentenceOccurrences(s: Sentence): Occurrences = {
+    def concat(s:Sentence, acc:Word): Word = {
+      if(s.isEmpty) acc
+      else concat(s.tail, acc + s.head)
+    }
+    wordOccurrences(concat(s, ""))
+  }
 
   /** The `dictionaryByOccurrences` is a `Map` from different occurrences to a sequence of all
    *  the words that have that occurrence count.
