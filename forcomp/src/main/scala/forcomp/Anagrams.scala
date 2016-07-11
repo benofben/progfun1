@@ -117,7 +117,7 @@ object Anagrams {
   def combinations(occurrences: Occurrences): List[Occurrences] = {
     if(occurrences.isEmpty) List[Occurrences]()
     else {
-      
+      List[Occurrences]()
     }
   }
 
