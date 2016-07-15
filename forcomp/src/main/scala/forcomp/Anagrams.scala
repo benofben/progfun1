@@ -114,16 +114,16 @@ object Anagrams {
    *  Note that the order of the occurrence list subsets does not matter -- the subsets
    *  in the example above could have been displayed in some other order.
    */
-  def combinations(occurrences: Occurrences): List[Occurrences] = {
+  def combinations(occurrences: Occurrences): List[Occurrences] = {    
     def combinationsacc(acc: List[Occurrences], occurrences: Occurrences): List[Occurrences] = {
       if(occurrences.isEmpty) acc
       else {
-        val iter = occurrences.combinations(occurrences.length-1)
-        val newacc = acc ++ iter.toList
+        val newacc = acc
         combinationsacc(newacc, occurrences.tail)
       } 
     }
-    combinationsacc(List[Occurrences](List[Occurrence]()), occurrences)
+    //combinationsacc(List[Occurrences](List[Occurrence]()), occurrences)
+    List[Occurrences](List[Occurrence]())
   }
 
   /** Subtracts occurrence list `y` from occurrence list `x`.
@@ -137,21 +137,31 @@ object Anagrams {
    *  and has no zero-entries.
    */
   def subtract(x: Occurrences, y: Occurrences): Occurrences = {
-    // make x into a dictionary.
-    // subtract y
-    // make back into a list
-    x
-    
-    /*
     if(y.isEmpty)
       x
     else {
-      val char = y.head._1
-      val int = y.head._2
-      x.
-      val acc = x
-      subtract(acc, y)
-    }*/
+      val b = y.head
+      def f(a: Occurrence) = {
+        if(a._1==b._1)
+          (a._1, a._1-b._1)
+        else
+          a
+      }
+      val newx = x.map(f)
+      
+      // need to remove any tuples with a count of 0
+      def dropzero(x: Occurrences, acc: Occurrences): Occurrences = {
+        if(x.isEmpty)
+          acc
+        else if(x.head._2==0)
+          dropzero(x.tail, acc)
+        else
+          dropzero(x.tail, acc ::: List[Occurrence](x.head))
+      }
+      
+      val newx2 = dropzero(newx, List[Occurrence]())
+      subtract(newx2, y.tail)
+    }
   }
 
   /** Returns a list of all anagram sentences of the given sentence.
