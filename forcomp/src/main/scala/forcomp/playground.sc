@@ -9,7 +9,7 @@ object playground {
                                                   
   Anagrams.subtract(Anagrams.wordOccurrences("lard"), Anagrams.wordOccurrences("r"))
                                                   //> res0: forcomp.Anagrams.Occurrences = List((a,1), (d,1), (l,1))
-  Anagrams.subtract(Anagrams.wordOccurrences("lard"), Anagrams.wordOccurrences("rd"))
-                                                  //> res1: forcomp.Anagrams.Occurrences = List((a,1), (l,1))
+  Anagrams.subtract(Anagrams.wordOccurrences("lardaass"), Anagrams.wordOccurrences("rad"))
+                                                  //> res1: forcomp.Anagrams.Occurrences = List((a,2), (l,1), (s,2))
 
 }

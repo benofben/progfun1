@@ -7,7 +7,7 @@ object playground {;import org.scalaide.worksheet.runtime.library.WorksheetSuppo
   //Anagrams.wordAnagrams("married")
   //Anagrams.combinations(Anagrams.wordOccurrences("abba"))
                                                   
-  Anagrams.subtract(Anagrams.wordOccurrences("lard"), Anagrams.wordOccurrences("r"));System.out.println("""res0: forcomp.Anagrams.Occurrences = """ + $show(res$0));$skip(86); val res$1 = 
-  Anagrams.subtract(Anagrams.wordOccurrences("lard"), Anagrams.wordOccurrences("rd"));System.out.println("""res1: forcomp.Anagrams.Occurrences = """ + $show(res$1))}
+  Anagrams.subtract(Anagrams.wordOccurrences("lard"), Anagrams.wordOccurrences("r"));System.out.println("""res0: forcomp.Anagrams.Occurrences = """ + $show(res$0));$skip(91); val res$1 = 
+  Anagrams.subtract(Anagrams.wordOccurrences("lardaass"), Anagrams.wordOccurrences("rad"));System.out.println("""res1: forcomp.Anagrams.Occurrences = """ + $show(res$1))}
 
 }

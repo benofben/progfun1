@@ -143,7 +143,7 @@ object Anagrams {
       val b = y.head
       def f(a: Occurrence) = {
         if(a._1==b._1)
-          (a._1, a._1-b._1)
+          (a._1, a._2-b._2)
         else
           a
       }
