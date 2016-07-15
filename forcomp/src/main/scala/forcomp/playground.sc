@@ -2,10 +2,16 @@ package forcomp
 
 object playground {
   println("Welcome to the Scala worksheet")       //> Welcome to the Scala worksheet
-  Anagrams.wordOccurrences("abcd")                //> res0: forcomp.Anagrams.Occurrences = List((a,1), (b,1), (c,1), (d,1))
-  Anagrams.sentenceOccurrences(List("abcd", "e")) //> res1: forcomp.Anagrams.Occurrences = List((a,1), (b,1), (c,1), (d,1), (e,1))
-                                                  //| 
-  Anagrams.dictionaryByOccurrences.get(List(('a', 1), ('e', 1), ('t', 1)))
-                                                  //> res2: Option[List[forcomp.Anagrams.Word]] = Some(List(ate, eat, tea))
-  Anagrams.wordAnagrams("married")                //> res3: List[forcomp.Anagrams.Word] = List(admirer, married)
+  //Anagrams.wordOccurrences("abcd")
+  //Anagrams.sentenceOccurrences(List("abcd", "e"))
+  //Anagrams.dictionaryByOccurrences.get(List(('a', 1), ('e', 1), ('t', 1)))
+  //Anagrams.wordAnagrams("married")
+  
+  Anagrams.combinations(Anagrams.wordOccurrences("abcd"))
+                                                  //> res0: List[forcomp.Anagrams.Occurrences] = List(List(), List((a,1), (b,1), (
+                                                  //| c,1)), List((a,1), (b,1), (d,1)), List((a,1), (c,1), (d,1)), List((b,1), (c,
+                                                  //| 1), (d,1)), List((b,1), (c,1)), List((b,1), (d,1)), List((c,1), (d,1)), List
+                                                  //| ((c,1)), List((d,1)), List())
+  Anagrams.combinations(Nil)                      //> res1: List[forcomp.Anagrams.Occurrences] = List(List())
+
 }

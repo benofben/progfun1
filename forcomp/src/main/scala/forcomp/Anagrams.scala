@@ -115,10 +115,15 @@ object Anagrams {
    *  in the example above could have been displayed in some other order.
    */
   def combinations(occurrences: Occurrences): List[Occurrences] = {
-    if(occurrences.isEmpty) List[Occurrences]()
-    else {
-      List[Occurrences]()
+    def combinationsacc(acc: List[Occurrences], occurrences: Occurrences): List[Occurrences] = {
+      if(occurrences.isEmpty) acc
+      else {
+        val iter = occurrences.combinations(occurrences.length-1)
+        val newacc = acc ++ iter.toList
+        combinationsacc(newacc, occurrences.tail)
+      } 
     }
+    combinationsacc(List[Occurrences](List[Occurrence]()), occurrences)
   }
 
   /** Subtracts occurrence list `y` from occurrence list `x`.
@@ -131,7 +136,23 @@ object Anagrams {
    *  Note: the resulting value is an occurrence - meaning it is sorted
    *  and has no zero-entries.
    */
-  def subtract(x: Occurrences, y: Occurrences): Occurrences = ???
+  def subtract(x: Occurrences, y: Occurrences): Occurrences = {
+    // make x into a dictionary.
+    // subtract y
+    // make back into a list
+    x
+    
+    /*
+    if(y.isEmpty)
+      x
+    else {
+      val char = y.head._1
+      val int = y.head._2
+      x.
+      val acc = x
+      subtract(acc, y)
+    }*/
+  }
 
   /** Returns a list of all anagram sentences of the given sentence.
    *
