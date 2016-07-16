@@ -115,15 +115,25 @@ object Anagrams {
    *  in the example above could have been displayed in some other order.
    */
   def combinations(occurrences: Occurrences): List[Occurrences] = {    
-    def combinationsacc(acc: List[Occurrences], occurrences: Occurrences): List[Occurrences] = {
-      if(occurrences.isEmpty) acc
-      else {
-        val newacc = acc ::: List[Occurrences](occurrences)
-        acc
-      }
-    }
     combinationsacc(List[Occurrences](List[Occurrence]()), occurrences)
   }
+  
+  def combinationsacc(acc: List[Occurrences], occurrences: Occurrences): List[Occurrences] = {
+    if(occurrences.isEmpty) acc
+    else {
+      val newacc = acc ::: List[Occurrences](occurrences)
+      occurrences.foreach(f(acc, occurrences))
+      newacc
+    }
+  }
+
+  def f(acc: List[Occurrences], occurrences: Occurrences)(a: Occurrence) = {
+    val b = subtract(occurrences, List[Occurrence]((a._1, 1)))
+    val c = combinationsacc(acc, b)
+    println(c)
+    c
+  }
+
 
   /** Subtracts occurrence list `y` from occurrence list `x`.
    *

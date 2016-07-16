@@ -7,8 +7,9 @@ object playground {
   //Anagrams.wordAnagrams("married")
   //Anagrams.subtract(Anagrams.wordOccurrences("lard"), Anagrams.wordOccurrences("r"))
   //Anagrams.subtract(Anagrams.wordOccurrences("lardaass"), Anagrams.wordOccurrences("rad"))
-  Anagrams.combinations(Anagrams.wordOccurrences("abba"))
-                                                  //> res0: List[forcomp.Anagrams.Occurrences] = List(List())
   //Anagrams.sentenceAnagrams(List())
   //Anagrams.sentenceAnagrams(List("Linux", "rulez"))
+  Anagrams.combinations(Anagrams.wordOccurrences("abba"))
+                                                  //> res0: List[forcomp.Anagrams.Occurrences] = List(List(), List((a,2), (b,2)), 
+                                                  //| List((a,2), (b,2)))
 }
