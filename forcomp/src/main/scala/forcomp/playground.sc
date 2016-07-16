@@ -10,4 +10,5 @@ object playground {
   //Anagrams.combinations(Anagrams.wordOccurrences("abba"))
   Anagrams.sentenceAnagrams(List())               //> res0: List[forcomp.Anagrams.Sentence] = List(List())
   Anagrams.sentenceAnagrams(List("Linux", "rulez"))
+                                                  //> res1: List[forcomp.Anagrams.Sentence] = List(List())
 }

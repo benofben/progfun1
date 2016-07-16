@@ -223,8 +223,8 @@ object Anagrams {
    *  Note: There is only one anagram of an empty sentence.
    */
   def sentenceAnagrams(sentence: Sentence): List[Sentence] = {
-    val occurrences = sentenceOccurrences(sentence)
-    val c = combinations(occurrences)
+    //val occurrences = sentenceOccurrences(sentence)
+    //val c = combinations(occurrences)
     List(Nil)
   }
 }
