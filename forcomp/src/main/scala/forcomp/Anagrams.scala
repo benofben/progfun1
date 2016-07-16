@@ -133,7 +133,7 @@ object Anagrams {
         if(input.isEmpty) acc
         else combine(input.tail, acc ::: input.head)
       }
-      combine(newacc2, List[List[(Char, Int)]]())
+      combine(newacc2.toSet.toList, List[List[(Char, Int)]]())
     }
   }
 
