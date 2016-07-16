@@ -118,12 +118,11 @@ object Anagrams {
     def combinationsacc(acc: List[Occurrences], occurrences: Occurrences): List[Occurrences] = {
       if(occurrences.isEmpty) acc
       else {
-        val newacc = acc
-        combinationsacc(newacc, occurrences.tail)
-      } 
+        val newacc = acc ::: List[Occurrences](occurrences)
+        acc
+      }
     }
-    //combinationsacc(List[Occurrences](List[Occurrence]()), occurrences)
-    List[Occurrences](List[Occurrence]())
+    combinationsacc(List[Occurrences](List[Occurrence]()), occurrences)
   }
 
   /** Subtracts occurrence list `y` from occurrence list `x`.
@@ -204,5 +203,7 @@ object Anagrams {
    *
    *  Note: There is only one anagram of an empty sentence.
    */
-  def sentenceAnagrams(sentence: Sentence): List[Sentence] = ???
+  def sentenceAnagrams(sentence: Sentence): List[Sentence] = {
+    List(Nil)
+  }
 }
