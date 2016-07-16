@@ -7,14 +7,7 @@ object playground {
   //Anagrams.wordAnagrams("married")
   //Anagrams.subtract(Anagrams.wordOccurrences("lard"), Anagrams.wordOccurrences("r"))
   //Anagrams.subtract(Anagrams.wordOccurrences("lardaass"), Anagrams.wordOccurrences("rad"))
-  //Anagrams.sentenceAnagrams(List())
-  //Anagrams.sentenceAnagrams(List("Linux", "rulez"))
-  Anagrams.combinations(Anagrams.wordOccurrences("abba"))
-                                                  //> res0: List[forcomp.Anagrams.Occurrences] = List(List(), List((a,2), (b,2)), 
-                                                  //| List((a,1), (b,2)), List((b,2)), List((b,1)), List(), List((a,2), (b,2)), Li
-                                                  //| st((a,1), (b,2)), List((a,1), (b,1)), List((b,1)), List(), List((a,2), (b,2)
-                                                  //| ), List((a,1), (b,2)), List((a,1), (b,1)), List((a,1)), List(), List((a,2), 
-                                                  //| (b,2)), List((a,2), (b,1)), List((a,1), (b,1)), List((b,1)), List(), List((a
-                                                  //| ,2), (b,2)), List((a,2), (b,1)), List((a,1), (b,1)), List((a,1)), List(), Li
-                                                  //| st((a,2), (b,2)), List((a,2), (b,1)), List((a,2)), List((a,1)))
+  //Anagrams.combinations(Anagrams.wordOccurrences("abba"))
+  Anagrams.sentenceAnagrams(List())               //> res0: List[forcomp.Anagrams.Sentence] = List(List())
+  Anagrams.sentenceAnagrams(List("Linux", "rulez"))
 }

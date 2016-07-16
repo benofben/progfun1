@@ -115,7 +115,11 @@ object Anagrams {
    *  in the example above could have been displayed in some other order.
    */
   def combinations(occurrences: Occurrences): List[Occurrences] = {    
-    combinationsacc(List[Occurrences](List[Occurrence]()), occurrences)
+    val x = combinationsacc(List[Occurrences](List[Occurrence]()), occurrences)
+
+    //get ride of duplicates
+    val set = x.toSet
+    set.toList
   }
   
   def combinationsacc(acc: List[Occurrences], occurrences: Occurrences): List[Occurrences] = {
