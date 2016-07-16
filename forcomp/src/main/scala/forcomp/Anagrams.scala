@@ -122,15 +122,20 @@ object Anagrams {
     if(occurrences.isEmpty) acc
     else {
       val newacc = acc ::: List[Occurrences](occurrences)
-      occurrences.foreach(f(acc, occurrences))
-      newacc
+      val newacc2 = occurrences.map(f(newacc, occurrences))
+      
+      // need to combine newacc from a list list list to a list list
+      def combine(input:List[List[List[(Char, Int)]]], acc: List[List[(Char, Int)]]): List[List[(Char, Int)]] = {
+        if(input.isEmpty) acc
+        else combine(input.tail, acc ::: input.head)
+      }
+      combine(newacc2, List[List[(Char, Int)]]())
     }
   }
 
   def f(acc: List[Occurrences], occurrences: Occurrences)(a: Occurrence) = {
     val b = subtract(occurrences, List[Occurrence]((a._1, 1)))
     val c = combinationsacc(acc, b)
-    println(c)
     c
   }
 
